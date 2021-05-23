@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block head %}
+<title>To-Do List</title>
+<link rel="stylesheet" href={{url_for("static", filename='css/styles.css')}}> {%
+endblock head %} {% block body %} <div class="row>
+<div class="col align-self-center">
+  <h1>Todo List</h1>
+  {% if tasks|length < 1 %}
+  <h4>There are no tasks. Create some below!</h4>
+  {% else %}
+  <table class="table table-bordered">
+    <thead>
+      <th>Title</th>
+      <th>Added</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <td>{{task.task}}</td>
+        <td>
+          <p>
+            On: {{task.date_created.strftime("%m/%d/%Y")}}<br />
+            At: {{task.date_created.strftime("%H:%M:%S")}}
+          </p>
+        </td>
+        <td>
+          <a class="btn btn-primary btn-sm" href="/delete/{{task.task_id}}"
+            >Delete</a
+          >
+
+          <a class="btn btn-primary btn-sm" href="/update/{{task.task_id}}"
+            >Update</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-center">
+    <a class="btn btn-sm btn-danger" href="/deleteAll"> Delete All Tasks </a>
+  </div>
+  {% endif %}
+  <form action="/toDo" method="POST">
+    <input type="text" name="content" id="content" placeholder="Enter Text" />
+    <input type="submit" value="Add Task" class="btn btn-primary btn-sm" />
+  </form>
+</div>
+
+{% endblock body %}
