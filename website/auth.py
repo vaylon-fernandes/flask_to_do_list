@@ -56,6 +56,10 @@ def login():
                 return redirect(url_for('views.to_do_list'))
             else:
                 flash('Incorrect Password, Please try again', category="Error")
+        else:
+            flash('Please Create a account first', category="Error")
+            return redirect(url_for("auth.signup"))
+
     return render_template("login.html", user=current_user)
 
 
