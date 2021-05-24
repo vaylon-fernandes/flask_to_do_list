@@ -20,6 +20,7 @@ def sign_up():
 
         if user:
             flash('Account already exists')
+            return redirect(url_for("views.login"))
         elif len(email) < 4:
             flash('Email should have at least 4 characters', category="Error")
         elif len(firstName) < 1:
@@ -58,7 +59,7 @@ def login():
                 flash('Incorrect Password, Please try again', category="Error")
         else:
             flash('Please Create a account first', category="Error")
-            return redirect(url_for("auth.signup"))
+            return redirect(url_for("auth.sign_up"))
 
     return render_template("login.html", user=current_user)
 
