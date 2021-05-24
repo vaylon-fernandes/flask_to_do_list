@@ -9,25 +9,26 @@ endblock head %} {% block body %} <div class="row>
   {% else %}
   <table class="table table-bordered">
     <thead>
-      <th>Title</th>
       <th>Added</th>
+      <th>Task To Do</th>
       <th>Action</th>
     </thead>
     <tbody>
       {% for task in tasks %}
       <tr>
-        <td>{{task.task}}</td>
         <td>
           <p>
             On: {{task.date_created.strftime("%m/%d/%Y")}}<br />
             At: {{task.date_created.strftime("%H:%M:%S")}}
           </p>
         </td>
+        <td>{{task.task}}</td>
         <td>
           <a class="btn btn-primary btn-sm" href="/delete/{{task.task_id}}"
             >Delete</a
           >
-
+          <br />
+          <br />
           <a class="btn btn-primary btn-sm" href="/update/{{task.task_id}}"
             >Update</a
           >
