@@ -13,7 +13,7 @@ def to_do_list():
     request_is_post = request.method == "POST"
     if request_is_post:
         task_content = request.form["content"]
-        new_task = ToDoList(task=task_content)
+        new_task = ToDoList(task=task_content, user_id=current_user.id)
         try:
             db.session.add(new_task)
             db.session.commit()
