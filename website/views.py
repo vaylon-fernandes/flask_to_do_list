@@ -7,7 +7,7 @@ import json
 views = Blueprint('views', __name__)
 
 
-@views.route('/toDo', methods=['POST', 'GET'])
+@views.route('/', methods=['POST', 'GET'])
 @login_required
 def to_do_list():
     request_is_post = request.method == "POST"
@@ -17,7 +17,7 @@ def to_do_list():
         try:
             db.session.add(new_task)
             db.session.commit()
-            return redirect('/toDo')
+            return redirect(url_for("views.to_do_list"))
         except:
             db.session.rollback()
             return 'There was an issue adding your task'
@@ -34,7 +34,7 @@ def delete(task_id):
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return redirect("/toDo")
+        return redirect(url_for("views.to_do_list"))
     except:
         db.session.rollback()
         return 'Deletion Failed'
@@ -46,7 +46,7 @@ def delete_all():
     try:
         db.session.query(ToDoList).delete()
         db.session.commit()
-        return redirect("/toDo")
+        return redirect(url_for("views.to_do_list"))
     except:
         db.session.rollback()
         return 'Could not delete'
@@ -61,8 +61,9 @@ def update(task_id):
         task_to_update.task = request.form['update']
         try:
             db.session.commit()
-            return redirect("/toDo")
+            return redirect(url_for("views.to_do_list"))
         except:
+            db.session.rollback()
             return 'Updation Failed'
     else:
         return render_template('update.html', task=task_to_update)
