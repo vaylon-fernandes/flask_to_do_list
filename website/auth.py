@@ -34,7 +34,7 @@ def sign_up():
                             password=generate_password_hash(password1, 'sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(user, remember=True)
+            login_user(new_user, remember=True)
 
             flash('Account Created!', category="Success")
             return redirect(url_for("views.to_do_list"))
