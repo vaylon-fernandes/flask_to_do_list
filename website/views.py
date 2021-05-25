@@ -22,12 +22,11 @@ def to_do_list():
             flash('There was a issue while adding your task', category="Error")
             return redirect(url_for("views.to_do_list"))
     else:
-        datecreated = ToDoList.date_created
         tasks = ToDoList.query.filter_by(user_id=current_user.id).all()
         return render_template("index.html", tasks=tasks, user=current_user)
 
 
-@views.route('/delete/<int:task_id>', methods=['POST'])
+@views.route('/delete/<int:task_id>', methods=['GET', 'POST'])
 @login_required
 def delete(task_id):
     task_to_delete = ToDoList.query.get_or_404(task_id)
@@ -69,4 +68,4 @@ def update(task_id):
             flash('There was a issue while updating your task', category="Error")
             return redirect(url_for("views.to_do_list"))
     else:
-        return render_template('update.html', task=task_to_update)
+        return render_template('update.html', task=task_to_update, user=current_user)
