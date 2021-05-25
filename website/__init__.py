@@ -11,7 +11,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = b'<\xeeD\xfc\xad\x03Qd\r\x0c\xe9jQU\xbeE'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
 
     from .views import views
@@ -30,6 +30,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
+        print(f"user {user_id}")
         return User.query.get(int(user_id))
     return app
 
