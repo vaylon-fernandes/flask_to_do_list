@@ -27,7 +27,7 @@ def to_do_list():
         return render_template("index.html", tasks=tasks, user=current_user)
 
 
-@views.route('/delete/<int:task_id>', methods=['GET', 'POST'])
+@views.route('/delete/<int:task_id>', methods=['POST'])
 @login_required
 def delete(task_id):
     task_to_delete = ToDoList.query.get_or_404(task_id)
