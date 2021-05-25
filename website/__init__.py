@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
+from os import path, environ
 from flask_login import LoginManager
 
 db = SQLAlchemy()
@@ -9,7 +9,7 @@ DB_NAME = "tasks.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = b'<\xeeD\xfc\xad\x03Qd\r\x0c\xe9jQU\xbeE'
+    app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
