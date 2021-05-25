@@ -7,10 +7,10 @@
 <!-- Body Block -->
 
 {% block body %}
-<div class="form">
-  <form action="/update/{{task.task_id}}" method="post">
+<div class="form-group">
+  <form class="" action="/update/{{task.task_id}}" method="post">
     <input type="text" name="update" id="update" placeholder="Enter Text" />
-    <input type="submit" value="Update" />
+    <input type="submit" value="Update" class="btn-primary" />
   </form>
 </div>
 
