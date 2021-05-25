@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, flash, jsonify, url_for
+from flask import Blueprint, render_template, request, redirect, flash,  url_for, flash
 from flask_login import login_required, current_user
 from .models import ToDoList
 from . import db
-import json
 
 views = Blueprint('views', __name__)
 
@@ -20,10 +19,11 @@ def to_do_list():
             return redirect(url_for("views.to_do_list"))
         except:
             db.session.rollback()
-            return 'There was an issue adding your task'
+            flash('There was a issue while adding your task', category="Error")
+            return redirect(url_for("views.to_do_list"))
     else:
         datecreated = ToDoList.date_created
-        tasks = ToDoList.query.order_by(datecreated).all()
+        tasks = ToDoList.query.filter_by(user_id=current_user.id).all()
         return render_template("index.html", tasks=tasks, user=current_user)
 
 
@@ -37,7 +37,8 @@ def delete(task_id):
         return redirect(url_for("views.to_do_list"))
     except:
         db.session.rollback()
-        return 'Deletion Failed'
+        flash('There was a issue while deleting your task', category="Error")
+        return redirect(url_for("views.to_do_list"))
 
 
 @views.route('/deleteAll', methods=['GET', 'POST'])
@@ -49,7 +50,8 @@ def delete_all():
         return redirect(url_for("views.to_do_list"))
     except:
         db.session.rollback()
-        return 'Could not delete'
+        flash('There was a issue while deleting your tasks', category="Error")
+        return redirect(url_for("views.to_do_list"))
 
 
 @views.route('/update/<int:task_id>', methods=['GET', 'POST'])
@@ -64,6 +66,7 @@ def update(task_id):
             return redirect(url_for("views.to_do_list"))
         except:
             db.session.rollback()
-            return 'Updation Failed'
+            flash('There was a issue while updating your task', category="Error")
+            return redirect(url_for("views.to_do_list"))
     else:
         return render_template('update.html', task=task_to_update)
