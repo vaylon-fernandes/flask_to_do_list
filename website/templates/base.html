@@ -35,11 +35,11 @@
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
           {% if user.is_authenticated %}
-          <a href="/toDo" class="nav-item nav-link" id="home">Home</a>
-          <a href="/logout" class="nav-item nav-link" id="logout">Logout</a>
+          <a href={{ url_for("views.to_do_list") }} class="nav-item nav-link" id="home">Home</a>
+          <a href={{ url_for("auth.logout") }} class="nav-item nav-link" id="logout">Logout</a>
           {% else %}
-          <a href="/login" class="nav-item nav-link" id="login">Login</a>
-          <a href="/signUp" class="nav-item nav-link" id="signup">Sign Up</a>
+          <a href={{ url_for("auth.login") }} class="nav-item nav-link" id="login">Login</a>
+          <a href={{ url_for("auth.sign_up") }} class="nav-item nav-link" id="signup">Sign Up</a>
           {% endif %}
         </div>
       </div>
