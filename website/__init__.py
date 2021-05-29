@@ -2,9 +2,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path, environ
 from flask_login import LoginManager
+from flask_modals import Modal
 
 db = SQLAlchemy()
 DB_NAME = "tasks.db"
+
+modal = Modal()
 
 
 def create_app():
@@ -13,6 +16,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
+
+    modal.init_app(app)
 
     from .views import views
     from .auth import auth
@@ -30,7 +35,6 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        print(f"user {user_id}")
         return User.query.get(int(user_id))
     return app
 

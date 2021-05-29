@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash,  url_for, flash
 from flask_login import login_required, current_user
+from flask_modals import render_template_modal
+from flask_modals.modal import redirect_to, render_template_redirect
 from .models import ToDoList
 from . import db
 
@@ -23,7 +25,7 @@ def to_do_list():
             return redirect(url_for("views.to_do_list"))
     else:
         tasks = ToDoList.query.filter_by(user_id=current_user.id).all()
-        return render_template("index.html", tasks=tasks, user=current_user)
+        return render_template_modal("index.html", tasks=tasks, user=current_user, modal='modal-form')
 
 
 @views.route('/delete/<int:task_id>', methods=['GET', 'POST'])
@@ -59,13 +61,12 @@ def update(task_id):
     task_to_update = ToDoList.query.get_or_404(task_id)
     request_is_post = request.method == "POST"
     if request_is_post:
-        task_to_update.task = request.form['update']
-        try:
-            db.session.commit()
-            return redirect(url_for("views.to_do_list"))
-        except:
-            db.session.rollback()
-            flash('There was a issue while updating your task', category="Error")
-            return redirect(url_for("views.to_do_list"))
-    else:
-        return render_template('update.html', task=task_to_update, user=current_user)
+        task_to_update.task = request.form['form-text']
+        # try:
+        db.session.commit()
+        return render_template_redirect(url_for("views.to_do_list"))
+        # except Exception as e:
+        # print(e)
+        #
+        # else:
+        #     return render_template('update.html', task=task_to_update, user=current_user)
