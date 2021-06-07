@@ -1,27 +1,64 @@
 # flask_to_do_list
-A To Do list application created using flask-sqlalchemy <br>
-Try it [here](https://flask-web-todo.herokuapp.com/)
+A To Do list application created using flask-sqlalchemy and bootstrap<br>
+
+## Demo
+See a live version deployed on heroku [here](https://flask-web-todo.herokuapp.com/)
 <br>
-## Local Setup and Installation 
-#### Clone the repository and cd to it
-```bash 
-git clone <repo url>
-cd flask_to_do_list
+Clone the project
+
+```bash
+  git clone https://github.com/vaylon-fernandes/flask_weather_app.git
 ```
-#### Create a virtual enviroment. [Read more](https://realpython.com/python-virtual-environments-a-primer/)
+
+Go to the project directory
+
+```bash
+  cd flask_to_do_list
+```
+Create a virtual enviroment. [Read more](https://realpython.com/python-virtual-environments-a-primer/)
 ```bash 
   venv <environment name>
 ```
-##### Note: Linux user might have to install venv using the following command
+##### Note: Linux users might have to install venv using the following command
 
-#### Activate the virtual environment 
 ```bash
    apt-get install python3-venv
+```
+
+#### Activate the virtual environment 
+On Linux:
+```bash 
+source venv/bin/activate
+```
+On Windows:
+```bash
+venv\Scripts\activate
 ```
 #### Install Reqirements
 ```bash 
   pip install -r requirements.txt
 ```
+## Configuring environment Variables
+- Firstly Generate a `Secret Key`. This is required by the Flask [Sessions](https://flask.palletsprojects.com/en/2.0.x/quickstart/#sessions). 
+Do read the section on  ***How to generate good secret keys***  in the flask documentation under 
+sessions [here](https://flask.palletsprojects.com/en/2.0.x/quickstart/#sessions)
+- Next export the secret key and API key to Enviroment Variables using one of the following commands based on your terminal
+Bash command 
+```bash
+  export SECRET_KEY=<your secret key>
+  export API_KEY=<your API key>
+```
+CMD command
+```bash
+  set SECRET_KEY=<your secret key>
+  set API_KEY=<your API key>
+```
+Powershell command
+```powershell
+  $env:SECRET_KEY=<your secret key>
+  $env:API_KEY=<your API key>
+```
+The enviroment variables are then read using the [os.environ object](https://www.geeksforgeeks.org/python-os-environ-object/)
 #### Running the app 
 To run the app, first export the `FLASK_APP` variable, using one of the following commands based on your terminal<br>
 Bash command 
@@ -60,7 +97,9 @@ Run command
 flask run
 ```
 Read more here: https://flask.palletsprojects.com/en/2.0.x/quickstart/#debug-mode
-
+## Deploying to Heroku
+- There's a good explanation of this given in this [repo](https://github.com/MirelaI/flask_heroku_example)
+- Another good read on the topic is on the Real Python [website](https://realpython.com/flask-by-example-part-1-project-setup/)
 #### References
 1. Freecodecamp video - https://youtu.be/Z1RJmh_OqeA
 2. Tech With Tim youtube video - https://youtu.be/dam0GPOAvVI
