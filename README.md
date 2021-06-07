@@ -42,21 +42,18 @@ venv\Scripts\activate
 - Firstly Generate a `Secret Key`. This is required by the Flask [Sessions](https://flask.palletsprojects.com/en/2.0.x/quickstart/#sessions). 
 Do read the section on  ***How to generate good secret keys***  in the flask documentation under 
 sessions [here](https://flask.palletsprojects.com/en/2.0.x/quickstart/#sessions)
-- Next export the secret key and API key to Enviroment Variables using one of the following commands based on your terminal
+- Next export the secret key  to Enviroment Variables using one of the following commands based on your terminal
 Bash command 
 ```bash
   export SECRET_KEY=<your secret key>
-  export API_KEY=<your API key>
 ```
 CMD command
 ```bash
   set SECRET_KEY=<your secret key>
-  set API_KEY=<your API key>
 ```
 Powershell command
 ```powershell
   $env:SECRET_KEY=<your secret key>
-  $env:API_KEY=<your API key>
 ```
 The enviroment variables are then read using the [os.environ object](https://www.geeksforgeeks.org/python-os-environ-object/)
 #### Running the app 
