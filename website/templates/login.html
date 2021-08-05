@@ -9,6 +9,7 @@ block body %}
       class="form-control"
       id="email"
       name="email"
+      value="{{ request.form['email'] }}"
       placeholder="Enter email"
     />
   </div>
@@ -22,7 +23,8 @@ block body %}
       placeholder="Enter password"
     />
   </div>
-  <br />
+  <p>Don't have a account? <a href="{{url_for('auth.sign_up')}}">Sign Up</a></p>
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
+
 {% endblock %}

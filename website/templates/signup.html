@@ -6,6 +6,7 @@
   <div class="form-group">
     <label for="email">Email Address</label>
     <input
+      value="{{ request.form['email']}}"
       type="email"
       class="form-control"
       id="email"
@@ -16,6 +17,7 @@
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input
+      value="{{ request.form['firstName']}}"
       type="text"
       class="form-control"
       id="firstName"
@@ -26,6 +28,7 @@
   <div class="form-group">
     <label for="password1">Password</label>
     <input
+      value="{{ request.form['password1']}}"
       type="password"
       class="form-control"
       id="password1"
@@ -36,6 +39,7 @@
   <div class="form-group">
     <label for="password2">Password (Confirm)</label>
     <input
+      value="{{ request.form['password2']}}"
       type="password"
       class="form-control"
       id="password2"
@@ -43,7 +47,7 @@
       placeholder="Confirm password"
     />
   </div>
-  <br />
+  <p>Already have a account? <a href="{{url_for('auth.login')}}">Log In</a></p>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock %}
