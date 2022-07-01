@@ -4,14 +4,15 @@ from os import path, environ
 from flask_login import LoginManager
 
 db = SQLAlchemy()
-DB_NAME = "tasks.db"
 
 
-def create_app(create_table=False):
+def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = environ.get("SECRET_KEY")
-    app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URL")
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+    uri = environ.get("DATABASE_URL")
+    uri = uri.replace(environ.get("OLD_HEADER"), environ.get("NEW_HEADER"), 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
 
     from .views import views
@@ -21,9 +22,6 @@ def create_app(create_table=False):
     app.register_blueprint(auth, url_prefix="/")
 
     from .models import ToDoList, User
-
-    if create_table:
-        create_database(app)
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
