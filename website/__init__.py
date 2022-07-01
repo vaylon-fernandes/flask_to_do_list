@@ -7,7 +7,7 @@ db = SQLAlchemy()
 DB_NAME = "tasks.db"
 
 
-def create_app():
+def create_app(create_table=False):
     app = Flask(__name__)
     app.config["SECRET_KEY"] = environ.get("SECRET_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URL")
@@ -21,6 +21,9 @@ def create_app():
     app.register_blueprint(auth, url_prefix="/")
 
     from .models import ToDoList, User
+
+    if create_table:
+        create_database(app)
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
